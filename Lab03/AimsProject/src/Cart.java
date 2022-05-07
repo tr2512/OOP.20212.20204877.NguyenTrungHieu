@@ -14,8 +14,8 @@ public class Cart {
 	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
 		for (int i = 0; i < qtyOrdered; i++) {
 			if (itemsOrdered[i].getTitle().equals(disc.getTitle())) {
-				itemsOrdered[i] = itemsOrdered[qtyOrdered];
-				itemsOrdered[qtyOrdered] = null;
+				itemsOrdered[i] = itemsOrdered[qtyOrdered - 1];
+				itemsOrdered[qtyOrdered - 1] = null;
 				qtyOrdered = qtyOrdered - 1;
 				System.out.println("The disc " + disc.getTitle() + " has been removed");
 				break;
