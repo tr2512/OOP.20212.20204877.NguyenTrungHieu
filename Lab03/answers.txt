@@ -1,0 +1,7 @@
+6. Create constructor method:
+- No, JAVA doesn't allow this
+10. Working with method overloading:
+- To pass an arbitrary number of parameters, Java use:
+addDigitalVideoDisc(DigitalVideoDisc ... args)
+- It works the same way as the array parameter, just different syntax
+- I prefer the use of args, because the codes is cleaner, you don't have to define an array for arguments.
