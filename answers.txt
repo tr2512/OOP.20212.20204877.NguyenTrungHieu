@@ -1,0 +1,15 @@
+Question Lab04:
+- Is JAVA a Pass by Value or a Pass by Reference programming language?
+JAVA is a Pass by Value programming language.
+- After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is
+the title of the JungleDVD changed?
+Because JAVA is a Pass by Value programming language, pass to the method swap
+only the copy of references of jungleDVD and cinderellaDVD, so the original 
+object doesn't change.
+- After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is
+the title of the JungleDVD changed?
+Because the method change an attribute of the references of jungleDVD object
+copy and pass to the method.
+- Write a toString() method for the DigitalVideoDisc class. What should be the return type of
+this method?
+toString() method should return String.
