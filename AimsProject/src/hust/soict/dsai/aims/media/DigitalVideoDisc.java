@@ -1,36 +1,11 @@
-package hust.soict.dsai.aims.disc;
+package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
-public class DigitalVideoDisc {
-	private String title;
-	private String category;
-	private String director;
-	private int length;
-	private float cost;
+public class DigitalVideoDisc extends Disc {
+	
 	private LocalDate dateAdded;
 	private static int nbDigitalVideoDiscs = 0;
-	private int id;
-	public String getTitle() {
-		return title;
-	}
-	public int getId() {
-		return id;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public String getDirector() {
-		return director;
-	}
-	public int getLength() {
-		return length;
-	}
-	public float getCost() {
-		return cost;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
+	
 	public DigitalVideoDisc(String title) {
 		super();
 		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
@@ -38,6 +13,7 @@ public class DigitalVideoDisc {
 		this.dateAdded = LocalDate.now();
 		this.title = title;
 	}
+	
 	public DigitalVideoDisc(String title, String category, float cost) {
 		super();
 		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
@@ -47,6 +23,7 @@ public class DigitalVideoDisc {
 		this.category = category;
 		this.cost = cost;
 	}
+	
 	public DigitalVideoDisc(String title, String category, String director, float cost) {
 		super();
 		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
@@ -57,6 +34,7 @@ public class DigitalVideoDisc {
 		this.director = director;
 		this.cost = cost;
 	}
+	
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
 		super();
 		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
@@ -68,9 +46,15 @@ public class DigitalVideoDisc {
 		this.length = length;
 		this.cost = cost;
 	}
+	
 	public boolean isMatch(String title) {
 		return this.title.toLowerCase().contains(title.toLowerCase());
 	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 	public String toString() {
 		String result = "";
 		result = result + title;
