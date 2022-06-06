@@ -1,3 +1,10 @@
+Question Lab05:
+- Which classes are aggregates of other classes?
+The CompactDisc class is an aggregate of Track class.
+The Cart class is an aggregate of Media class.
+The Store class is an aggregate of Media class.
+
+
 Question Lab04:
 - Is JAVA a Pass by Value or a Pass by Reference programming language?
 JAVA is a Pass by Value programming language.
