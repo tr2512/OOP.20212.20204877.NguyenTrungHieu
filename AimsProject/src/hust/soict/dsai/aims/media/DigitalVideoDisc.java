@@ -1,50 +1,21 @@
 package hust.soict.dsai.aims.media;
-import java.time.LocalDate;
 
-public class DigitalVideoDisc extends Disc {
-	
-	private LocalDate dateAdded;
-	private static int nbDigitalVideoDiscs = 0;
+public class DigitalVideoDisc extends Disc implements Playable{
 	
 	public DigitalVideoDisc(String title) {
-		super();
-		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
-		this.id = DigitalVideoDisc.nbDigitalVideoDiscs;
-		this.dateAdded = LocalDate.now();
-		this.title = title;
+		super(title, "", 0.0f, 0, "");
 	}
 	
 	public DigitalVideoDisc(String title, String category, float cost) {
-		super();
-		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
-		this.id = DigitalVideoDisc.nbDigitalVideoDiscs;
-		this.dateAdded = LocalDate.now();
-		this.title = title;
-		this.category = category;
-		this.cost = cost;
+		super(title, category, cost, 0, "");
 	}
 	
 	public DigitalVideoDisc(String title, String category, String director, float cost) {
-		super();
-		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
-		this.id = DigitalVideoDisc.nbDigitalVideoDiscs;
-		this.dateAdded = LocalDate.now();
-		this.title = title;
-		this.category = category;
-		this.director = director;
-		this.cost = cost;
+		super(title, category, cost, 0, director);
 	}
 	
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super();
-		DigitalVideoDisc.nbDigitalVideoDiscs += 1;
-		this.id = DigitalVideoDisc.nbDigitalVideoDiscs;
-		this.dateAdded = LocalDate.now();
-		this.title = title;
-		this.category = category;
-		this.director = director;
-		this.length = length;
-		this.cost = cost;
+		super(title, category, cost, length, director);
 	}
 	
 	public boolean isMatch(String title) {
@@ -69,5 +40,10 @@ public class DigitalVideoDisc extends Disc {
 		}
 		result = result + ": " + cost + " $";
 		return result;
+	}
+	
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
 	}
 }
