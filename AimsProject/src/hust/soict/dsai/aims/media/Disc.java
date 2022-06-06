@@ -13,8 +13,10 @@ public class Disc extends Media{
 		return director;
 	}
 
-	public Disc() {
-		// TODO Auto-generated constructor stub
+	public Disc(String title, String category, float cost, int length, String director) {
+		super(title, category, cost);
+		this.length = length;
+		this.director = director;
 	}
 
 }

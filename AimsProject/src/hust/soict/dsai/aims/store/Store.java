@@ -1,5 +1,4 @@
 package hust.soict.dsai.aims.store;
-import hust.soict.dsai.aims.media.DigitalVideoDisc;
 import hust.soict.dsai.aims.media.Media;
 import java.util.ArrayList;
 
@@ -8,28 +7,28 @@ public class Store {
 	public static final int MAX_NUMBERS_STORE = 100;
 	private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 	
-	public void addDVD (DigitalVideoDisc dvd) {
+	public void addMedia (Media media) {
 		if (itemsInStore.size() == MAX_NUMBERS_STORE) {
 			System.out.println("The store is full!");
 		} else {
-			itemsInStore.add(dvd);
-			System.out.println("The disk " + dvd.getTitle() + " has been added.");
+			itemsInStore.add(media);
+			System.out.println("The disk " + media.getTitle() + " has been added.");
 		}		
 	}
 	
-	public void removeDVD (DigitalVideoDisc dvd) {
+	public void removeMedia (Media media) {
 		boolean flag = true;
 		
 		for (int i = 0; i < itemsInStore.size(); i++) {
-			if (itemsInStore.get(i).getTitle().equals(dvd.getTitle())) {
+			if (itemsInStore.get(i).getTitle().equals(media.getTitle())) {
 				itemsInStore.remove(i);
 				flag = false;
-				System.out.println("The disc " + dvd.getTitle() + " has been removed from the store.");
+				System.out.println("The disc " + media.getTitle() + " has been removed from the store.");
 				break;
 			}
 		}
 		if (flag) {
-			System.out.println("The disc " + dvd.getTitle() + " is not found in the store.");
+			System.out.println("The disc " + media.getTitle() + " is not found in the store.");
 		}
 	}
 	

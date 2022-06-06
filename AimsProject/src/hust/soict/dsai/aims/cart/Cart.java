@@ -17,18 +17,18 @@ public class Cart {
 		}
 	}	
 		
-	public void removeMedia(Media media) {
+	public void removeMedia(String title) {
 		boolean flag = true;
 		for (int i = 0; i < itemsOrdered.size(); i++) {
-			if (itemsOrdered.get(i).getTitle().equals(media.getTitle())) {
+			if (itemsOrdered.get(i).getTitle().equals(title)) {
 				flag = false;
 				itemsOrdered.remove(i);
-				System.out.println("The disc " + media.getTitle() + " has been removed");
+				System.out.println("The disc " + title + " has been removed");
 				break;
 			}
 		}
 		if (flag) {
-			System.out.println(media.getTitle() + " is not in the cart");
+			System.out.println(title + " is not in the cart");
 		}
 	}
 	
@@ -94,17 +94,17 @@ public class Cart {
 		display(0, itemsOrdered.size());
 	}
 	
-	public void searchDVD (int id) {
+	public void searchMedia (int id) {
 		boolean flag = true;
 		for (int i = 0; i < itemsOrdered.size(); i++) {
 			if (itemsOrdered.get(i).getId() == id) {
-				System.out.println("Find the DVD with the the id: " + id);
+				System.out.println("Find the Media with the the id: " + id);
 				display(i, i + 1);
 				flag = false;
 				break;
 			}
 		if (flag) {
-			System.out.println("The DVD with id " + id + " is not in the cart");
+			System.out.println("The Media with id " + id + " is not in the cart");
 		}
 		}
 	}
@@ -159,8 +159,8 @@ public class Cart {
 	public void searchByTitle (String title) {
 		boolean flag = true;
 		for (int i = 0; i < itemsOrdered.size(); i ++) {
-			if (itemsOrdered.get(i).equals(title)) {
-				System.out.println("Find a match disk");
+			if (itemsOrdered.get(i).getTitle().equals(title)) {
+				System.out.println("Find a match media");
 				display(i, i + 1);
 				flag = false;
 			}
@@ -168,5 +168,16 @@ public class Cart {
 		if (flag) {
 			System.out.println("There is no dvd match the given title");
 		}
+	}
+	
+	public Media getALuckyItem() {
+		double a = Math.random();
+		int b = (int)a*(itemsOrdered.size() - 1);
+		System.out.println("The lucky item is " + itemsOrdered.get(b).getTitle());
+		return itemsOrdered.get(b);
+	}
+	
+	public int numberMedia () {
+		return itemsOrdered.size();
 	}
 }

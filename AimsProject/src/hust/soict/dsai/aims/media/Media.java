@@ -1,14 +1,14 @@
 package hust.soict.dsai.aims.media;
 import java.time.LocalDate;
 
-public class Media {
+public abstract class Media {
 	
 	protected int id;
 	protected String title;
 	protected String category;
 	protected float cost;
-	private static int nbMedia = 0;
-	private LocalDate dateAdded;
+	protected static int nbMedia = 0;
+	protected LocalDate dateAdded;
 	
 	public int getId() {
 		return id;
@@ -17,7 +17,7 @@ public class Media {
 	public String getTitle() {
 		return title;
 	}
-
+	
 	public String getCategory() {
 		return category;
 	}
@@ -34,7 +34,10 @@ public class Media {
 		return dateAdded;
 	}
 	
-	public Media() {
+	public Media(String title, String category, float cost) {
+		this.title = title;
+		this.category = category;
+		this.cost = cost;
 		nbMedia = nbMedia + 1;
 		this.id = Media.nbMedia;
 		this.dateAdded = LocalDate.now();
