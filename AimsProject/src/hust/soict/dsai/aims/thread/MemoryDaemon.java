@@ -1,6 +1,6 @@
 package hust.soict.dsai.aims.thread;
 
-public class MemoryDaemon extends Thread implements java.lang.Runnable{
+public class MemoryDaemon implements java.lang.Runnable{
 	
 	private long memoryUsed = 0;
 	
@@ -15,8 +15,7 @@ public class MemoryDaemon extends Thread implements java.lang.Runnable{
 			}
 		}
 	}
-	public MemoryDaemon(String title) {
-		super(title);
+	public MemoryDaemon() {
 	}
 
 }

@@ -10,11 +10,13 @@ import hust.soict.dsai.aims.thread.MemoryDaemon;
 
 public class Aims {
 	public static void main(String[] args) {
-		Thread memory = new MemoryDaemon("Thread");
+		MemoryDaemon memory = new MemoryDaemon();
 		Scanner keyboard = new Scanner(System.in);
 		Store store = new Store();
 		Cart anOrder = new Cart();
-		memory.setDaemon(true);
+		Thread t = new Thread(memory);
+		t.setDaemon(true);
+		t.start();
 		while (true) {
 			showMenu();
 			int n = keyboard.nextInt();
