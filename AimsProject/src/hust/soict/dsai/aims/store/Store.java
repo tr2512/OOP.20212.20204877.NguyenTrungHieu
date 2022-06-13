@@ -52,4 +52,10 @@ public class Store {
 		}
 		return itemsInStore.get(itemsInStore.size() - 1);
 	}
+	
+	public void displayStore() {
+		for (int i = 0; i < itemsInStore.size(); i++) {
+			System.out.println(itemsInStore.get(i).toString());
+		}
+	}
 }

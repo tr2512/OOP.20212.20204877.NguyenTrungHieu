@@ -1,8 +1,28 @@
 package hust.soict.dsai.aims.media;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Book extends Media {
 	
 	private ArrayList<String> authors = new ArrayList<String>();
+	private String content;
+	private List<String> contentTokens = new ArrayList<String>();
+	private Map<String, Integer> wordFrequency = new TreeMap<String, Integer>();
+	
+	public void processContent() {
+		String[] contentSplit = content.split("[ ,?.!;]");
+		for (int i = 0; i < contentSplit.length; i++) {
+			if (wordFrequency.containsKey(contentSplit[i])) {
+				wordFrequency.put(contentSplit[i], wordFrequency.get(contentSplit[i]) + 1);
+			} else {
+				contentTokens.add(contentSplit[i]);
+				wordFrequency.put(contentSplit[i], 1);
+			}
+		}
+		java.util.Collections.sort(contentTokens);
+	}
 	
 	public void addAuthor(String authorName) {
 		boolean flag = true;
@@ -32,16 +52,19 @@ public class Book extends Media {
 		}
 	}
 	
-	public Book(String title, String category, float cost) {
+	public Book(String title, String category, float cost, String content) {
 		super(title, category, cost);
+		this.content = content;
+		processContent();
 	}
 	
 	public String toString() {
-		String descrip = title + " - " + category + " - " + cost;
+		StringBuffer descrip = new StringBuffer(id + " - " + title + " - " + category + " - " + cost);
 		for (int i = 0; i < authors.size(); i++) {
-			descrip = descrip + " - " + authors.get(i);
+			descrip.append(" - " + authors.get(i));
 		}
-		return descrip;
+		descrip.append("\nlength: " + contentTokens.size() + "\n Word list: " + String.join(" ,", contentTokens) + "\n Occurences: " + wordFrequency);
+		return descrip.toString();
 	}
 
 }

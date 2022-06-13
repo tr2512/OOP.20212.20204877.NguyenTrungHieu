@@ -7,6 +7,7 @@ import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Book;
 import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.thread.MemoryDaemon;
+import hust.soict.dsai.aims.media.Playable;
 
 public class Aims {
 	public static void main(String[] args) {
@@ -23,6 +24,7 @@ public class Aims {
 			keyboard.nextLine();
 			if (n == 1) {
 				while (true) {
+					store.displayStore();
 					storeMenu();
 					int m = keyboard.nextInt();
 					keyboard.nextLine();
@@ -51,6 +53,23 @@ public class Aims {
 						}
 					} else if (m == 3) {
 						anOrder.display(0, anOrder.numberMedia());
+						System.out.println("Enter the title of the disc want to play");
+						String title = keyboard.nextLine();
+						Media media = anOrder.searchByTitle(title);
+						if (media instanceof Playable) {
+							((Playable) media).play();
+						} else {
+							System.out.println("Can't play this media");
+						}
+					} else if (m == 4) {
+						System.out.println("Enter the title of the disc want to play");
+						String title = keyboard.nextLine();
+						Media media = store.searchMedia(title);
+						if (media instanceof Playable) {
+							((Playable) media).play();
+						} else {
+							System.out.println("Can't play this media");
+						}
 					} else if (m == 0) {
 						break;
 					}
@@ -77,7 +96,9 @@ public class Aims {
 							String category = keyboard.nextLine();
 							System.out.println("The cost of the book:");
 							float cost = keyboard.nextFloat();
-							Media book = new Book(title, category, cost);
+							System.out.println("The content of the book:");
+							String content = keyboard.nextLine();
+							Media book = new Book(title, category, cost, content);
 							store.addMedia(book);
 							} else if (z == 2) {
 								System.out.println("The title of the dvd:");
@@ -200,9 +221,10 @@ public class Aims {
 		System.out.println("1. See a media’s details");
 		System.out.println("2. Add a media to cart");
 		System.out.println("3. See current cart");
+		System.out.println("4. Play a media");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
-		System.out.println("Please choose a number: 0-1-2-3");
+		System.out.println("Please choose a number: 0-1-2-3-4");
 		}
 	public static void cartMenu() {
 		System.out.println("Options: ");

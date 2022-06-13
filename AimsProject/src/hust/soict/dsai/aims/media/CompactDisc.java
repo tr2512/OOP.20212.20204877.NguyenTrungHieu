@@ -61,7 +61,7 @@ public class CompactDisc extends Disc implements Playable{
 	}
 	
 	public String toString() {
-		String descrip = title + " - " + category + " - " + length + " - " + director + " - " + artist + " - " + cost;
+		String descrip = id + " - " + title + " - " + category + " - " + length + " - " + director + " - " + artist + " - " + cost;
 		for (int i = 0; i < tracks.size(); i++) {
 			descrip = descrip + "\nTrack list\n" + (i + 1) + " - " + tracks.get(i).toString();
 		}

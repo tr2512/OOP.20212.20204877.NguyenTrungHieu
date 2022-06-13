@@ -28,6 +28,7 @@ public class DigitalVideoDisc extends Disc implements Playable{
 	
 	public String toString() {
 		String result = "";
+		result = result + id + " - ";
 		result = result + title;
 		if (category != null) {
 			result = result + " - " + category;
