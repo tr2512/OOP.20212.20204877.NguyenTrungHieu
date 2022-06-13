@@ -1,3 +1,7 @@
+Question Lab06:
+When running the code, the program output information for different types (book, cd, dvd).
+For the same Media.toString(), the program output different format. This is polymorphism, where a single parent class Media can have different behaviour based on the child class use to create (book, cd, dvd).
+
 Question Lab05:
 - Which classes are aggregates of other classes?
 The CompactDisc class is an aggregate of Track class.
