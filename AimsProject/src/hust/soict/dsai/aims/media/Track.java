@@ -18,9 +18,10 @@ public class Track implements Playable{
 		this.length = length;
 	}
 	
-	public void play() {
+	public String play() {
 		System.out.println("Playing DVD: " + this.getTitle());
 		System.out.println("DVD length: " + this.getLength());
+		return "<html>Playing DVD: " + this.getTitle() + "<br/>" + "DVD length: " + this.getLength() + "</html";
 	}	
 	
 	public String toString() {

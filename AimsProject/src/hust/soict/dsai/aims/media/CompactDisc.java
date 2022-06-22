@@ -48,16 +48,21 @@ public class CompactDisc extends Disc implements Playable{
 		return sum;
 	}
 	
-	public CompactDisc(String title, String category, float cost, int length, String director, String artist) {
-		super(title, category, cost, length, director);
+	public CompactDisc(String title, String category, float cost, String director, String artist) {
+		super(title, category, cost, 0, director);
 		this.artist = artist;
 	}
 	
-	public void play() {
+	public String play() {
+		StringBuffer str = new StringBuffer("");
+		str.append("<html>Playing the compact disc " + title + " by " + artist + " with" + tracks.size() + " tracks<br/>");
 		System.out.println("Playing the compact disc " + title + " by " + artist + " with" + tracks.size() + " tracks");
 		for (int i = 0; i < tracks.size(); i++) {
 			tracks.get(i).play();
+			str.append(tracks.get(i).play() + "<br/>");
 		}
+		str.append("</html>");
+		return str.toString();
 	}
 	
 	public String toString() {

@@ -4,7 +4,10 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
-
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -31,6 +34,16 @@ public class MediaStore extends JPanel {
 		
 		if (media instanceof Playable) {
 			JButton playButton = new JButton("Play");
+			playButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JFrame f = new JFrame("Play media");
+					JDialog dialog = new JDialog(f, "Play media");
+					dialog.add(new JLabel(((Playable)media).play()));
+					dialog.setLocationRelativeTo(null);
+					dialog.setVisible(true);
+					dialog.setSize(300, 150);
+				}
+			});
 			container.add(playButton);
 		}
 		
