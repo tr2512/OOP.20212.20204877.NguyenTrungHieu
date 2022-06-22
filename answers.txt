@@ -1,3 +1,12 @@
+Question Lab07:
+Top level container in AWT and Swing:
+- AWT: Frame, Window, Dialog
+- Swing: JFrame, JDialog, JApplet
+Class name in Java Swing has an addition J at the start.
+Event handling in Swing is faster than AWT.
+AWT appearance is platform dependent, where Swing is platform independent.
+
+
 Question Lab06:
 When running the code, the program output information for different types (book, cd, dvd).
 For the same Media.toString(), the program output different format. This is polymorphism, where a single parent class Media can have different behaviour based on the child class use to create (book, cd, dvd).
