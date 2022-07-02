@@ -1,12 +1,18 @@
 package hust.soict.dsai.aims.cart;
+
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import hust.soict.dsai.aims.media.Media;
-import java.util.ArrayList;
 
 public class Cart {
 	
 	public static final int MAX_NUMBERS_ORDERED = 20;
-	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
+	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 	
+	public ObservableList<Media> getItemsOrdered() {
+		return itemsOrdered;
+	}
+
 	public void addMedia(Media media) {
 		if (itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
 			System.out.println("The cart is full!");
@@ -16,13 +22,13 @@ public class Cart {
 		}
 	}	
 		
-	public void removeMedia(String title) {
+	public void removeMedia(Media media) {
 		boolean flag = true;
 		for (int i = 0; i < itemsOrdered.size(); i++) {
-			if (itemsOrdered.get(i).getTitle().equals(title)) {
+			if (itemsOrdered.get(i).getTitle().equals(media.getTitle())) {
 				flag = false;
 				itemsOrdered.remove(i);
-				System.out.println("The disc " + title + " has been removed");
+				System.out.println("The disc " + media.getTitle() + " has been removed");
 				break;
 			}
 		}
