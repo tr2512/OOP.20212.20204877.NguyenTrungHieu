@@ -10,7 +10,7 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemToStoreScreen{
 	
 	private JButton button = new JButton("Add dvd to store");
 	
-	public AddDigitalVideoDiscToStoreScreen(Store store, StoreManagerScreen screen) {
+	public AddDigitalVideoDiscToStoreScreen(Store store, StoreManagerScreen screen) throws IllegalArgumentException {
 		super(store, screen);
 		addQuestion("Director");
 		addQuestion("Length");
@@ -22,6 +22,9 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemToStoreScreen{
 				String category = inputs.get(1).getText();
 				inputs.get(1).setText("");
 				float cost = Float.parseFloat(inputs.get(2).getText());
+				if (cost < 0) {
+					throw new IllegalArgumentException("Cost is negative");
+				}
 				inputs.get(2).setText("");
 				String director = inputs.get(3).getText();
 				inputs.get(3).setText("");

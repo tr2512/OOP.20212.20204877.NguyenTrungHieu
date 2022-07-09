@@ -4,23 +4,30 @@ import javafx.event.ActionEvent;
 
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 import hust.soict.dsai.aims.media.Media;
 
 import java.io.IOException;
 
 import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.store.Store;
 import hust.soict.dsai.aims.media.Playable;
 
@@ -28,6 +35,8 @@ public class CartController {
 
 	private Store store;
 	private Cart cart;
+	@FXML
+	private TextField searchField;
     @FXML
     private Button btnPlay;
 
@@ -78,6 +87,22 @@ public class CartController {
     			updateButtonBar(newValue);
     		}
     	});
+    	costLabel.setText("" + cart.totalCost());
+    	searchField.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+    		public void changed(ObservableValue<? extends String> observable,
+    	            String oldValue, String newValue) {
+    			if (newValue == null | newValue.equals("")) {
+    				tblMedia.setItems(cart.getItemsOrdered());
+    			} else {
+    				if (((RadioButton)filterCategory.getSelectedToggle()).getText().equals("By ID")) {
+    					tblMedia.setItems(cart.searchMedia(Integer.parseInt(newValue)));
+    				} else {
+    					tblMedia.setItems(cart.searchByTitle(newValue));
+    				}
+    			}
+    		}
+    	});
     }
     
     void updateButtonBar(Media media) {
@@ -87,20 +112,35 @@ public class CartController {
     	} else {
     		btnRemove.setVisible(true);
     		if (media instanceof Playable) {
-    			btnRemove.setVisible(true);
+    			btnPlay.setVisible(true);
+    		} else {
+    			btnPlay.setVisible(false);
     		}
     	}
     }
     
     @FXML
     void btnPlayPressed(ActionEvent event) {
-    	
+    	Media media = tblMedia.getSelectionModel().getSelectedItem();
+    	Alert alert = new Alert(AlertType.NONE);
+		alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+		alert.setTitle("Play media");
+		alert.setHeaderText(media.getTitle());
+		try {
+		alert.setContentText(((Playable)media).play());
+		} catch (PlayerException e){
+			alert.setContentText(e.getMessage());
+			e.getStackTrace();
+		}
+		alert.showAndWait();
+
     }
 
     @FXML
     void btnRemovePressed(ActionEvent event) {
     	Media media = tblMedia.getSelectionModel().getSelectedItem();
     	cart.removeMedia(media);
+    	costLabel.setText("" + cart.totalCost());
     }
 
     @FXML
@@ -118,5 +158,20 @@ public class CartController {
 			e.printStackTrace();
 		}
     }
+    
+    @FXML 
+    void btnPlaceOrder(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.NONE);
+		alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+		alert.setTitle("Information");
+		alert.setHeaderText("An order has been placed.");
+		alert.setContentText("The total cost is " + cart.totalCost());
 
+		alert.showAndWait();
+		cart = new Cart();
+		tblMedia.setItems(cart.getItemsOrdered());
+		costLabel.setText("0");
+    }
+    
+    
 }

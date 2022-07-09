@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.Box;
+
+import hust.soict.dsai.aims.exception.PlayerException;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
 
@@ -38,7 +40,12 @@ public class MediaStore extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					JFrame f = new JFrame("Play media");
 					JDialog dialog = new JDialog(f, "Play media");
+					try {
 					dialog.add(new JLabel(((Playable)media).play()));
+					} catch (PlayerException exception) {
+						dialog.add(new JLabel(exception.getMessage()));
+						exception.printStackTrace();
+					}
 					dialog.setLocationRelativeTo(null);
 					dialog.setVisible(true);
 					dialog.setSize(300, 150);

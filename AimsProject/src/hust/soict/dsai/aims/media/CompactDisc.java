@@ -1,6 +1,8 @@
 package hust.soict.dsai.aims.media;
 import java.util.ArrayList;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class CompactDisc extends Disc implements Playable{
 	
 	private String artist;
@@ -10,34 +12,23 @@ public class CompactDisc extends Disc implements Playable{
 		return artist;
 	}
 	
-	public void addTrack(Track track) {
-		boolean flag = true;
+	public void addTrack(Track track) throws NullPointerException {
 		for (int i = 0; i < tracks.size(); i++) {
 			if (tracks.get(i).getTitle().equals(track.getTitle())) {
-				flag = false;
-				System.out.println("The track has already in the list of tracks!");
-				break;
+				throw new NullPointerException("This track is already in the disc");
 			}
 		}
-		if (flag) {
-			tracks.add(track);
-			System.out.println("The track " + track.getTitle() + " has been added.");
-		}
+		tracks.add(track);
 	}
 	
-	public void removeTrack(Track track) {
-		boolean flag = true;
+	public void removeTrack(Track track) throws NullPointerException {
 		for (int i = 0; i < tracks.size(); i ++) {
 			if (tracks.get(i).getTitle().equals(track.getTitle())) {
-				flag = false;
 				tracks.remove(i);
-				System.out.println("Remove " + track.getTitle() + " from the list of tracks.");
-				break;
+				return;
 			}
 		}
-		if (flag) {
-			System.out.println("Track " + track.getTitle() + " is not in the list of tracks!");
-		}
+		throw new NullPointerException("No track with the given name in the list");
 	}
 	
 	public int getLength() {
@@ -53,7 +44,20 @@ public class CompactDisc extends Disc implements Playable{
 		this.artist = artist;
 	}
 	
-	public String play() {
+	public String play() throws PlayerException {
+		if (this.getLength() < 0) {
+			throw new PlayerException("This CD length is non-positive");
+		}
+		java.util.Iterator iter = tracks.iterator();
+		Track nextTrack;
+		while(iter.hasNext()) {
+			nextTrack = (Track) iter.next();
+			try {
+				nextTrack.play();
+			}catch(PlayerException e) {
+				throw e;
+			}
+		}
 		StringBuffer str = new StringBuffer("");
 		str.append("<html>Playing the compact disc " + title + " by " + artist + " with" + tracks.size() + " tracks<br/>");
 		System.out.println("Playing the compact disc " + title + " by " + artist + " with" + tracks.size() + " tracks");
