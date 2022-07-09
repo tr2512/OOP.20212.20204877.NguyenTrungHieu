@@ -1,5 +1,7 @@
 package hust.soict.dsai.aims.media;
 
+import hust.soict.dsai.aims.exception.PlayerException;
+
 public class DigitalVideoDisc extends Disc implements Playable{
 	
 	public DigitalVideoDisc(String title) {
@@ -43,9 +45,12 @@ public class DigitalVideoDisc extends Disc implements Playable{
 		return result;
 	}
 	
-	public String play() {
+	public String play() throws PlayerException {
+		if (this.getLength() < 0) {
+			throw new PlayerException("This DVD Length is not positive");
+		}
 		System.out.println("Playing DVD: " + this.getTitle());
 		System.out.println("DVD length: " + this.getLength());
-		return "<html>Playing DVD: " + this.getTitle() + "<br/> " + "DVD length: " + this.getLength() + "</html";
+		return "Playing DVD: " + this.getTitle() + "\n " + "DVD length: " + this.getLength() + "";
 	}
 }

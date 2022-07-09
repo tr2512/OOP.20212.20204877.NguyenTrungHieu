@@ -53,7 +53,7 @@ public class ViewStoreController {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader();
 				fxmlLoader.setLocation(getClass().getResource(ITEM_FXML_FILE_PATH));
-				ItemController itemController = new ItemController();
+				ItemController itemController = new ItemController(cart);
 				fxmlLoader.setController(itemController);
 				AnchorPane anchorPane = new AnchorPane();
 				anchorPane = fxmlLoader.load();
@@ -63,8 +63,9 @@ public class ViewStoreController {
 					column = 0;
 					row++;
 				}
-				
-				gridPane.add(anchorPane, column++, row);
+
+				gridPane.add(anchorPane, column, row);
+				column = column + 1;
 				GridPane.setMargin(anchorPane, new Insets(20, 10, 10, 10));
 			} catch (IOException e) {
 				e.printStackTrace();	

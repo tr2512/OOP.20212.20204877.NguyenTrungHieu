@@ -1,4 +1,7 @@
 package hust.soict.dsai.aims.cart;
+import java.util.ArrayList;
+
+import javax.naming.LimitExceededException;
 
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -13,28 +16,23 @@ public class Cart {
 		return itemsOrdered;
 	}
 
-	public void addMedia(Media media) {
+	public void addMedia(Media media) throws LimitExceededException {
 		if (itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
-			System.out.println("The cart is full!");
+			throw new LimitExceededException("The cart has maximum number of discs");
 		} else {
 			itemsOrdered.add(media);
 			System.out.println(media.getTitle() + " has been added to the cart");
 		}
 	}	
 		
-	public void removeMedia(Media media) {
-		boolean flag = true;
+	public void removeMedia(Media media) throws NullPointerException{
 		for (int i = 0; i < itemsOrdered.size(); i++) {
 			if (itemsOrdered.get(i).getTitle().equals(media.getTitle())) {
-				flag = false;
 				itemsOrdered.remove(i);
-				System.out.println("The disc " + media.getTitle() + " has been removed");
-				break;
+				return;
 			}
 		}
-		if (flag) {
-			System.out.println(title + " is not in the cart");
-		}
+		throw new NullPointerException("No media is found in the cart.");
 	}
 	
 	public int addMedia(ArrayList<Media> mediaList) {
@@ -48,12 +46,12 @@ public class Cart {
 		return mediaList.size();
 	}
 	
-	public void addMedia(Media media1, Media media2) {
+	public void addMedia(Media media1, Media media2) throws LimitExceededException{
 		if (itemsOrdered.size() == MAX_NUMBERS_ORDERED - 1) {
-			System.out.println("The cart is full, can only add " + media1.getTitle());
 			itemsOrdered.add(media1);
+			throw new LimitExceededException("Can only add the first media");
 		} else if (itemsOrdered.size() == MAX_NUMBERS_ORDERED) {
-			System.out.println("The cart is full, can't add more media");
+			throw new LimitExceededException("The cart is full");
 		} else {
 			itemsOrdered.add(media1);
 			itemsOrdered.add(media2);
@@ -67,19 +65,18 @@ public class Cart {
 		}
 	}
 	
-	public void searchMedia (int id) {
+	public ObservableList<Media> searchMedia (int id) {
+		ObservableList<Media> list = FXCollections.observableArrayList();
 		boolean flag = true;
 		for (int i = 0; i < itemsOrdered.size(); i++) {
 			if (itemsOrdered.get(i).getId() == id) {
-				System.out.println("Find the Media with the the id: " + id);
-				display(i, i + 1);
-				flag = false;
-				break;
+				list.add(itemsOrdered.get(i));
 			}
 		if (flag) {
 			System.out.println("The Media with id " + id + " is not in the cart");
 			}
 		}
+		return list;
 	}
 	
 	public void sortByTitle() {
@@ -107,15 +104,15 @@ public class Cart {
 		return total;
 	}
 	
-	public Media searchByTitle (String title) {
+	public ObservableList<Media> searchByTitle (String title) {
+		ObservableList<Media> list = FXCollections.observableArrayList();
 		for (int i = 0; i < itemsOrdered.size(); i ++) {
 			if (itemsOrdered.get(i).getTitle().equals(title)) {
 				System.out.println("Find a match media");
-				display(i, i + 1);
-				return itemsOrdered.get(i);
+				list.add(itemsOrdered.get(i));
 			}
 		}
-		return itemsOrdered.get(0);
+		return list;
 	}
 	
 	public Media getALuckyItem() {

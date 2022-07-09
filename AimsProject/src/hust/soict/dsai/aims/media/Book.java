@@ -24,21 +24,16 @@ public class Book extends Media {
 		java.util.Collections.sort(contentTokens);
 	}
 	
-	public void addAuthor(String authorName) {
-		boolean flag = true;
+	public void addAuthor(String authorName) throws NullPointerException {
 		for (int i = 0; i < authors.size(); i++) {
 			if (authors.get(i).equals(authorName)) {
-				flag = false;
-				System.out.println("This author is already in the list.");
-				break;
+				throw new NullPointerException("The author is already in the list");
 			}
 		}
-		if (flag) {
-			authors.add(authorName);
-		}
+		authors.add(authorName);
 	}
 	
-	public void removeAuthor(String authorName) {
+	public void removeAuthor(String authorName) throws NullPointerException{
 		boolean flag = true;
 		for (int i = 0; i < authors.size(); i++) {
 			if (authors.get(i).equals(authorName)) {
@@ -48,7 +43,7 @@ public class Book extends Media {
 			}
 		}
 		if (flag) {
-			System.out.println("This author is not in the list.");
+			throw new NullPointerException("The author is not in the list");
 		}
 	}
 	

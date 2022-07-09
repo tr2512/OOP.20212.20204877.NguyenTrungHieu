@@ -49,7 +49,7 @@ public abstract class Media implements Comparable<Media>{
 
 	public boolean equals(Object o) {
 		if (o instanceof Media) {
-			if (this.id == ((Media)o).getId()) {
+			if (this.cost == ((Media)o).getCost() && this.title.equals(((Media)o).getTitle())) {
 				return true;
 			} else {
 				return false;
@@ -63,7 +63,7 @@ public abstract class Media implements Comparable<Media>{
 		if (title.compareTo(media.getTitle()) != 0) {
 			return title.compareTo(media.getTitle());
 		} else {
-			return category.compareTo(media.getCategory());
+			return (int)(cost - media.getCost());
 		}
 	}
 }

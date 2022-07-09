@@ -4,13 +4,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
 import hust.soict.dsai.aims.media.Media;
 import hust.soict.dsai.aims.media.Playable;
 
+import javax.naming.LimitExceededException;
+
+import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.exception.PlayerException;
 public class ItemController {
 
+	private Cart cart;
     @FXML
     private Button btnAddToCart;
 
@@ -38,11 +46,29 @@ public class ItemController {
     }
     @FXML
     void btnAddToCartClicked(ActionEvent event) {
-
+    	try {
+    		cart.addMedia(media);
+    	} catch (LimitExceededException e) {
+    		e.printStackTrace();
+    	}
     }
 
-    @FXML
+    public ItemController(Cart cart) {
+		this.cart = cart;
+	}
+    
+	@FXML
     void btnPlayClicked(ActionEvent event) {
-
+		Alert alert = new Alert(AlertType.NONE);
+		alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+		alert.setTitle("Play media");
+		alert.setHeaderText(media.getTitle());
+		try {
+		alert.setContentText(((Playable)media).play());
+		} catch (PlayerException e) {
+			alert.setContentText(e.getMessage());
+			e.printStackTrace();
+		}
+		alert.showAndWait();
     }
 }
